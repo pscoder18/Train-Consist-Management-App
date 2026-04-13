@@ -1,28 +1,32 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 public class TrainConsistApp {
 
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
 
-        Set<String> bogieIds = new HashSet<>();
+        LinkedList<String> trainConsist = new LinkedList<>();
 
-        bogieIds.add("BG101");
-        bogieIds.add("BG102");
-        bogieIds.add("BG103");
+        trainConsist.add("Sleeper");
+        trainConsist.add("AC Chair");
+        trainConsist.add("Cargo");
 
-        System.out.println("Initial Bogie IDs added: " + bogieIds);
+        System.out.println("Initial Consist: " + trainConsist);
 
-        System.out.println("\nAttempting to add duplicate ID: BG101...");
-        boolean isAdded = bogieIds.add("BG101");
+        trainConsist.addFirst("Engine");
+        trainConsist.addLast("Guard Coach");
+        System.out.println("After adding Engine and Guard: " + trainConsist);
 
-        if (!isAdded) {
-            System.out.println("Constraint Violated: Duplicate Bogie ID 'BG101' rejected.");
+        trainConsist.add(2, "Pantry Car");
+        System.out.println("After inserting Pantry Car at position 2: " + trainConsist);
+
+        trainConsist.removeFirst();
+        trainConsist.removeLast();
+        System.out.println("After detaching Engine and Guard (First & Last): " + trainConsist);
+
+        System.out.println("\nFinal Ordered Train Consist:");
+        for (String bogie : trainConsist) {
+            System.out.println("-> " + bogie);
         }
-
-        System.out.println("\nFinal Unique Bogie IDs in System:");
-        System.out.println(bogieIds);
-        System.out.println("Total Unique Bogies: " + bogieIds.size());
     }
 }
