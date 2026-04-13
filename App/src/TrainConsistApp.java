@@ -1,37 +1,32 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainConsistApp {
 
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
 
-        // 1. Initialize LinkedHashSet to maintain unique bogies in order
-        Set<String> trainFormation = new LinkedHashSet<>();
+        // 1. Initialize HashMap (Key: Bogie Name, Value: Capacity)
+        Map<String, Integer> bogieCapacities = new HashMap<>();
 
-        // 2. Attach bogies in physical sequence
-        trainFormation.add("Engine");
-        trainFormation.add("Sleeper");
-        trainFormation.add("Cargo");
-        trainFormation.add("Guard");
+        // 2. Map bogies to their respective capacities (Put operations)
+        bogieCapacities.put("Sleeper", 72);
+        bogieCapacities.put("AC Chair", 56);
+        bogieCapacities.put("First Class", 24);
+        bogieCapacities.put("General", 90);
 
-        System.out.println("Initial Train Formation (Order Preserved):");
-        System.out.println(trainFormation);
+        System.out.println("Bogie-Capacity mapping initialized.\n");
 
-        // 3. Attempt to attach a duplicate bogie
-        System.out.println("\nAttempting to re-attach 'Sleeper' bogie...");
-        boolean isAdded = trainFormation.add("Sleeper");
-
-        if (!isAdded) {
-            System.out.println("System Alert: Duplicate bogie detected. Attachment rejected.");
+        // 3. Iterate through the Map using entrySet()
+        System.out.println("--- Current Bogie Capacity Details ---");
+        for (Map.Entry<String, Integer> entry : bogieCapacities.entrySet()) {
+            System.out.println("Bogie Type: " + entry.getKey() + " | Capacity: " + entry.getValue() + " seats");
         }
 
-        // 4. Final Verification
-        System.out.println("\nFinal Verified Train Consist:");
-        int position = 1;
-        for (String bogie : trainFormation) {
-            System.out.println("Position " + position + ": " + bogie);
-            position++;
+        // 4. Fast Lookup Example
+        String searchBogie = "AC Chair";
+        if (bogieCapacities.containsKey(searchBogie)) {
+            System.out.println("\nQuick Search: The " + searchBogie + " has a capacity of " + bogieCapacities.get(searchBogie) + " seats.");
         }
     }
 }
